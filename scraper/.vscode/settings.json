@@ -1,0 +1,14 @@
+{
+    // Point VS Code's Python extension at the project venv (Linux/macOS path).
+    // If you're on Windows, change the path to e.g. "${workspaceFolder}\\venv\\Scripts\\python.exe".
+    "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python",
+    // Backwards-compatible fallback used by older extension versions
+    "python.pythonPath": "${workspaceFolder}/venv/bin/python",
+    // Ensure the Python extension activates the venv in the integrated terminal
+    "python.terminal.activateEnvironment": true,
+    // Make the integrated terminal pick up the venv on start (Linux)
+    "terminal.integrated.env.linux": {
+        "VIRTUAL_ENV": "${workspaceFolder}/venv",
+        "PATH": "${workspaceFolder}/venv/bin:${env:PATH}"
+    }
+}
