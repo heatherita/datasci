@@ -12,3 +12,13 @@ https://mycareer.nj.gov/training/search?q=lascomp+%2Bcomptia \
 https://mycareer.nj.gov/training/search?q=lascomp++pmp \
 https://mycareer.nj.gov/training/search?q=lascomp++entrepreneur https://mycareer.nj.gov/training/search?q=kaizen+pmp \
 https://mycareer.nj.gov/training/search?q=kaizen+data https://nj.gov/labor/myunemployment/jobseekers/training/
+
+
+# collector
+
+Update pyproject.toml
+After that, activate the venv when you work on the project:
+source .venv/bin/activate
+
+Run your command as many times as you like:
+collector ...

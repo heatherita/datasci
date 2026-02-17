@@ -1,0 +1,9 @@
+[project]
+name = "datasci"
+version = "0.1.0"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+collector = "collector.cli:main"
