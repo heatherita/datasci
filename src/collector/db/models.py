@@ -3,8 +3,10 @@ from enum import UNIQUE
 from sqlalchemy import Column, Integer, Float, String, Text, DateTime, Boolean, Date, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from database import Base
+# from database import Base
 import enum
+from collector.db.database import Base
+
 
 class RedditSubmission(Base):
     __tablename__ = "reddit_submission"
