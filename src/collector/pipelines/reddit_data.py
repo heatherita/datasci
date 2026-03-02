@@ -25,7 +25,7 @@ def fetch_new(after: str | None = None, limit: int = 100):
 
 
 def ingest(pages: int = 5, sleep_s: float = 1.2):
-    db = SessionLocal()
+    # db = SessionLocal()
     try:
         after = None
         for _ in range(pages):

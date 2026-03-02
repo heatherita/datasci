@@ -25,7 +25,7 @@ class RedditSubmission(Base):
     submission_sentiment = relationship("RedditSubmissionSentiment", back_populates="reddit_submission")
 
 class RedditSubmissionSentiment(Base):
-    __tablename__ = "submission_sentiment"
+    __tablename__ = "reddit_submission_sentiment"
 
     id = Column(Integer, primary_key=True, index=True)
     reddit_id = Column(Text,unique=True)
