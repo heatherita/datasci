@@ -1,5 +1,8 @@
 
-from interviews.service.linkedin_service import add_contact, add_contact_to_interview, add_question, create_interview, create_qa, delete_contact, get_contact_by_firstname, get_contact_by_fullname, get_contact_by_id, get_question, get_questions_like
+import json
+from pathlib import Path
+
+from interviews.service.linkedin_service import add_contact, add_contact_to_interview, add_question, create_interview, create_qa, delete_contact, get_contact_by_firstname, get_contact_by_fullname, get_contact_by_id, get_contact_by_profile_id, get_question, get_questions_like
 from datetime import datetime
 
 
@@ -52,3 +55,30 @@ def interview_script_3():
         print(f"deleting contact with name: {contact.firstname} {contact.lastname} and id: {contact.id}")
         delete_contact(contact.id)
         print(f"contact is deleted")
+        
+def interview_script_4():
+    interview_path = Path(__file__).resolve().parents[1] / "json" / "dummy-20260303.json"
+    with interview_path.open() as f:
+                interviews_json = json.load(f)
+
+
+    for ij in interviews_json:
+        contact = get_contact_by_profile_id(ij["profile_id"])
+        if contact:
+            print(f"contact {contact.profile_id} with lastname {contact.lastname} already exists")
+        else:
+            add_contact(
+                firstname=ij["name"].split(" ")[0],
+                lastname=ij["name"].split(" ")[1],
+                title=ij["title"],
+                industry=ij["industry"],
+                profile_id=ij["profile_id"],            
+                org_size=ij["org_size"],            
+                region=ij["region"],            
+                security_posture=ij["security_posture"],            
+                adoption_readiness=ij["adoption_readiness"]            
+                )
+    print(f"finished adding {len(interviews_json)} contacts")    
+
+        
+    

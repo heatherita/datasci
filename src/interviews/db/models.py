@@ -10,11 +10,16 @@ class LinkedInContact(Base):
     __table_args__ = {"schema": "li"}
 
     id = Column(Integer, primary_key=True, index=True)
+    profile_id = Column(String)
     firstname = Column(String)
     lastname = Column(String)
-    title = Column(Text)
-    company = Column(Text)
-    industry = Column(Text)
+    title = Column(String)
+    company = Column(String)
+    industry = Column(String)
+    org_size = Column(String)
+    region = Column(String)    
+    security_posture = Column(String)
+    adoption_readiness = Column(Integer)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     fetched_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
@@ -33,6 +38,7 @@ class Interview(Base):
 
     contact = relationship("LinkedInContact", back_populates="interviews",lazy="selectin")
     qas = relationship("InterviewQA", back_populates="interview", lazy="selectin", cascade="all, delete-orphan")
+    painpoints = relationship("PainPoint", back_populates="interview", lazy="selectin", cascade="all, delete-orphan")
 
 
 class InterviewQA(Base):
@@ -69,6 +75,21 @@ class Question(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     fetched_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     qas = relationship("InterviewQA", back_populates="question",lazy="selectin", cascade="all, delete-orphan")
+    
+    
+class PainPoint(Base):
+    __tablename__ = "pain_point"
+    __table_args__ = {"schema": "li"}
+
+    id = Column(Integer, primary_key=True)
+    interview_id = Column(
+        Integer, ForeignKey("li.interview.id"), nullable=False,
+    )
+    text = Column(Text, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    fetched_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    interview = relationship("Interview", back_populates="painpoints",lazy="selectin")
+    
 
 
 
