@@ -1,5 +1,12 @@
 /.venv
+/.idea
 /out
+*.egg-info/
+.eggs/
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+build/
+dist/
 **/*.html
 **/*.pdf
 **/*.pyc
