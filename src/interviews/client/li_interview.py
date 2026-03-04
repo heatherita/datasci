@@ -1,73 +1,25 @@
 
 import json
 from pathlib import Path
-
-from interviews.service.linkedin_service import add_contact, add_contact_to_interview, add_question, create_interview, create_qa, delete_contact, get_contact_by_firstname, get_contact_by_fullname, get_contact_by_id, get_contact_by_profile_id, get_question, get_questions_like
+from interviews.db.models import Interview, InterviewQA, Question
+from interviews.service.linkedin_service import add_answer_to_qa, add_contact, add_contact_to_interview, add_question, create_interview, create_qa, delete_contact, get_contact_by_firstname, get_contact_by_fullname, get_contact_by_id, get_contact_by_profile_id, get_interview, get_qa_in_interview, get_question_by_label, get_question_by_text, get_questions_like
 from datetime import datetime
 
 
-
-def interview_script_1():
-    
-    contact = add_contact("mary","ronstandt","purchaser","miele")
-    print(f"the contact is {contact}")
-    add_question("how big are your feet?")
-    add_question("how hip are your friends?")
-    add_question("how long can you dance?")
-    add_question("how big is your dog?")
-    questions = get_questions_like("how big")
-    for ques in questions:
-        print(f"the question is {ques.id} and {ques.text}")
         
-    
-def interview_script_2():
-    
-    contact = get_contact_by_fullname("mary","ronstandt")
-    print(f"the contact is {contact}")
-
-    # questions = []
-    # questions.append(get_question("how big are your feet?"))
-    # questions.append(get_question("how hip are your friends?"))
-    # questions.append(get_question("how long can you dance?"))
-    # questions.append(get_question("how big is your dog?"))
-    
-    question1 = get_question("how big are your feet?")
-    question2 = get_question("how hip are your friends?")
-    question3 = get_question("how long can you dance?")
-    question4 = get_question("how big is your dog?")
-
-    qas = []
-    
-    interview_date = datetime.strptime("2026-03-03", "%Y-%m-%d")
-    interview = create_interview(interview_date, "here are some notes",contact)
-    # interview = add_contact_to_interview(contact,interview) 
-    qas.append(create_qa(question1,"this is the first question",interview))
-    qas.append(create_qa(question2,"this is the second question",interview))
-    qas.append(create_qa(question3,"yes, the third question",interview))
-    qas.append(create_qa(question4,"and yes yes yes, the fourth question",interview))
-    return interview              
-
-
-def interview_script_3():
-    
-    contact = get_contact_by_firstname("mary")
-    if contact:
-        print(f"deleting contact with name: {contact.firstname} {contact.lastname} and id: {contact.id}")
-        delete_contact(contact.id)
-        print(f"contact is deleted")
-        
-def interview_script_4():
+def create_contacts():
+    contacts = []
     interview_path = Path(__file__).resolve().parents[1] / "json" / "dummy-20260303.json"
     with interview_path.open() as f:
-                interviews_json = json.load(f)
+        interviews_json = json.load(f)
 
-
+    #add contacts
     for ij in interviews_json:
         contact = get_contact_by_profile_id(ij["profile_id"])
         if contact:
-            print(f"contact {contact.profile_id} with lastname {contact.lastname} already exists")
+            print(f"CONTACT EXISTS {contact.profile_id} with lastname {contact.lastname}")
         else:
-            add_contact(
+            contact = add_contact(
                 firstname=ij["name"].split(" ")[0],
                 lastname=ij["name"].split(" ")[1],
                 title=ij["title"],
@@ -78,7 +30,91 @@ def interview_script_4():
                 security_posture=ij["security_posture"],            
                 adoption_readiness=ij["adoption_readiness"]            
                 )
-    print(f"finished adding {len(interviews_json)} contacts")    
+        contacts.append(contact)
+    print(f"finished adding {len(interviews_json)} contacts")  
+    return contacts
+    
+#add questions
+def create_questions():
+    questions = []
+    questions_path = Path(__file__).resolve().parents[1] / "json" / "li_questions_20260303.json"
+    with questions_path.open() as f:
+        questions_json = json.load(f)
+        for question_json in questions_json:
+            question = get_question_by_label(question_json["question_label"])
+            if question:
+                print(f"QUESTION EXISTS with text: {question.label} and {question.text}")
+            else:
+                add_question(question_json["question_text"],question_json["question_label"])
+            questions.append(question)
+    return questions
 
+def create_interviews():  
+    interviews = []     
+    interview_path = Path(__file__).resolve().parents[1] / "json" / "dummy-20260303.json"
+    with interview_path.open() as f:
+                interviews_json = json.load(f)
+
+    #add contacts
+    for ij in interviews_json:
+        contact = get_contact_by_profile_id(ij["profile_id"])
+        if contact:
+            print(f"CONTACT EXISTS {contact.profile_id} with lastname {contact.lastname}")
+            interview = get_interview(ij["interview_date"],contact)
+            if interview:
+                print(f"INTERVIEW EXISTS for {contact.firstname} {contact.lastname} and date {interview.interview_date}") 
+            else:
+                interview = create_interview(ij["interview_date"],"initial linkedin interview", contact) 
+            interviews.append(interview)
+    return interviews
+
+def add_questions(interview:Interview, questions:list[Question]):
+    qas = []
+    for question in questions:
+        print(f"QUESTION FOUND: {question.id} {question.text}")
+        qa = get_qa_in_interview(question,interview)
+        if qa:
+            print(f"QA EXISTS with text: {question.text} for interview: {interview.notes} from {interview.interview_date}")
+        else:
+            qa = create_qa(question, interview)
+            print(f"ADDED QA with text: {question.text} for interview: {interview.notes} from {interview.interview_date}")
+        qas.append(qa)
+    return qas
+
+
+def add_answers(qas:list[InterviewQA]):
+    interview_path = Path(__file__).resolve().parents[1] / "json" / "dummy-20260303.json"
+    with interview_path.open() as f:
+        interviews_json = json.load(f)
+        for ij in interviews_json:
+
+            for qa in qas:
+                question:Question = qa.question
+                # answer_text = ij[question.label]
+                add_answer_to_qa(qa, ij[question.label])
+                
+        
+
+def add_answers_scratch():
+    interview_path = Path(__file__).resolve().parents[1] / "json" / "dummy-20260303.json"
+    with interview_path.open() as f:
+        interviews_json = json.load(f)
+        field_names = interviews_json.keys()      
+        #add contacts
+        for ij in interviews_json:
+            contact = get_contact_by_profile_id(ij["profile_id"])
+            if contact:
+                interview = get_interview(ij["interview_date"],contact)
+                if interview:
+                    print(f"INTERVIEW EXISTS for {contact.firstname} {contact.lastname} and date {interview.interview_date}") 
+                    for field_name in field_names:
+                        question = get_question_by_label(field_name)
+                        if question:
+                            qa = get_qa_in_interview(question, interview)
+                            if qa:
+                                add_answer_to_qa(qa, ij[field_name])
+        
+                    
+          
         
     

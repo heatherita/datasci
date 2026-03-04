@@ -1,6 +1,7 @@
 [
   {
     "profile_id": "P001",
+    "interview_date": "2026-03-03",
     "name": "Maya Chen",
     "title": "Director, Compliance Operations",
     "industry": "Financial services",
@@ -14,11 +15,17 @@
     "q4_adopt_private_ai": "If it’s deployed in our tenant/VPC, supports role-based access, audit logs, and a clear retention model. Also needs a straightforward procurement/security review path.",
     "q5_approver": "Security, Legal, Compliance, and our Risk committee. IT would own implementation.",
     "q6_vendor_comfort": "Clear architecture, third-party security reports, data isolation guarantees, configurable retention, strong admin controls, and references from similar regulated firms.",
-    "top_pains": ["version control", "slow exports", "auditability", "duplicate docs"],
+    "top_pains": [
+      "version control",
+      "slow exports",
+      "auditability",
+      "duplicate docs"
+    ],
     "adoption_readiness": 3
   },
   {
     "profile_id": "P002",
+    "interview_date": "2026-03-03",
     "name": "Jordan Patel",
     "title": "IT Manager, Corporate Systems",
     "industry": "Manufacturing",
@@ -32,11 +39,17 @@
     "q4_adopt_private_ai": "If it integrates with M365 permissions, is simple to administer, and doesn’t require a huge data engineering project. A pilot that shows time saved would help.",
     "q5_approver": "IT + Security lead + VP Operations. Procurement for contracts.",
     "q6_vendor_comfort": "Easy SSO, least-privilege by default, transparent pricing, and the ability to prove it’s respecting permissions. Also an off switch and good support.",
-    "top_pains": ["findability", "permissions complexity", "repeat work", "knowledge in chat"],
+    "top_pains": [
+      "findability",
+      "permissions complexity",
+      "repeat work",
+      "knowledge in chat"
+    ],
     "adoption_readiness": 4
   },
   {
     "profile_id": "P003",
+    "interview_date": "2026-03-03",
     "name": "Elena Ruiz",
     "title": "Senior Counsel, Litigation & Investigations",
     "industry": "Healthcare",
@@ -50,11 +63,17 @@
     "q4_adopt_private_ai": "Defensible workflows: citations to source passages, immutable audit logs, retention controls, and the ability to lock models/config for a matter. Also needs PHI-safe handling.",
     "q5_approver": "General Counsel, Chief Privacy Officer, Security, and Compliance. Outside counsel may weigh in.",
     "q6_vendor_comfort": "Defensibility is the key: explainability, traceable outputs, matter-based access, and strong contractual terms. A vendor that understands legal review wins.",
-    "top_pains": ["cost", "speed", "defensibility", "privilege controls"],
+    "top_pains": [
+      "cost",
+      "speed",
+      "defensibility",
+      "privilege controls"
+    ],
     "adoption_readiness": 2
   },
   {
     "profile_id": "P004",
+    "interview_date": "2026-03-03",
     "name": "Sam O’Neill",
     "title": "Head of Knowledge Management",
     "industry": "Professional services (consulting)",
@@ -68,11 +87,17 @@
     "q4_adopt_private_ai": "A system that respects doc permissions, supports curated 'gold' sources, and can generate answers with citations. Also needs easy redaction controls for client content.",
     "q5_approver": "CIO + Security + KM + a client risk committee.",
     "q6_vendor_comfort": "Permission-aware retrieval, citation-first answers, admin tooling for collections, and clear boundaries between client and internal knowledge. Proof of controls matters more than fancy demos.",
-    "top_pains": ["content scattered", "tagging inconsistency", "reuse difficulty", "scaling curation"],
+    "top_pains": [
+      "content scattered",
+      "tagging inconsistency",
+      "reuse difficulty",
+      "scaling curation"
+    ],
     "adoption_readiness": 5
   },
   {
     "profile_id": "P005",
+    "interview_date": "2026-03-03",
     "name": "Priya Narang",
     "title": "VP, Data & Analytics",
     "industry": "SaaS (B2B)",
@@ -86,7 +111,12 @@
     "q4_adopt_private_ai": "If it plugs into our stack quickly, supports SSO, has sane pricing, and lets us define what sources are allowed. Also needs monitoring for risky prompts.",
     "q5_approver": "Me + Security + Engineering leadership. If it touches customer data, Legal too.",
     "q6_vendor_comfort": "Fast time-to-value, good connectors, admin controls, usage analytics, and the ability to sandbox. Also: strong stance on training/no-training on our data.",
-    "top_pains": ["fragmented context", "low trust in search", "slack as knowledge base", "inconsistent governance"],
+    "top_pains": [
+      "fragmented context",
+      "low trust in search",
+      "slack as knowledge base",
+      "inconsistent governance"
+    ],
     "adoption_readiness": 4
   }
 ]

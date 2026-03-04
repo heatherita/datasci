@@ -1,0 +1,30 @@
+[
+    {
+        "question_label":"q1_search_analyze",
+        "question_text": "How do you currently search and analyze sensitive internal documents?"
+    },
+    {
+        "question_label":"q1_frustrating",
+        "question_text": "What’s frustrating about the process of searching and analyzing sensitive internal documents?"
+    },
+    {
+        "question_label":"q2_ai_privacy",
+        "question_text": "How is your organization thinking about AI and data privacy right now?"
+    },
+    {
+        "question_label":"q3_policies_chatgpt",
+        "question_text": "Are there policies limiting the use of public AI tools like ChatGPT with internal documents?"
+    },
+    {
+        "question_label":"q4_adopt_private_ai",
+        "question_text": "What would need to happen for you to consider adopting a private AI system?"
+    },
+    {
+        "question_label":"q5_approver",
+        "question_text": "Who in your organization would evaluate or approve something like that?"
+    },
+    {
+        "question_label":"q6_vendor_comfort",
+        "question_text": "If you were evaluating a vendor in this space, what would make you comfortable?"
+    }
+]

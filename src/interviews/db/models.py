@@ -32,7 +32,7 @@ class Interview(Base):
     id = Column(Integer, primary_key=True, index=True)
     contact_id = Column(Integer, ForeignKey("li.contact.id",ondelete="SET NULL"),nullable=True)
     notes = Column(Text)
-    interview_date = Column(DateTime(timezone=True))
+    interview_date = Column(Date)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     fetched_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
@@ -71,6 +71,7 @@ class Question(Base):
     __table_args__ = {"schema": "li"}
 
     id = Column(Integer, primary_key=True)
+    label = Column(String, unique=True, nullable=True)
     text = Column(Text, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     fetched_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
