@@ -36,6 +36,11 @@ def get_question_by_text(question_text:str):
     question = db.query(Question).filter(Question.text==question_text).first()
     return question
 
+def get_pain_point_by_text(pp_str:str):
+    pp = db.query(PainPoint).filter(PainPoint.text==pp_str).first()
+    return pp
+
+
 def get_question_by_label(question_label:str):
     question = db.query(Question).filter(Question.label==question_label).first()
     return question
@@ -99,6 +104,13 @@ def get_qa_in_interview(question:Question, interview:Interview):
         InterviewQA.question_id==question.id)).first()
     return qa
 
+def get_pain_point_in_interview(pp_in:PainPoint, interview: Interview):
+    pp = db.query(PainPoint).filter(and_(
+        id == pp_in.id,
+        PainPoint.interview_id==interview.id
+    ))
+    return pp
+
 def add_contact_to_interview(contact:LinkedInContact, interview: Interview):
     interview.contact = contact
     db.commit()
@@ -128,7 +140,7 @@ def add_answer_to_qa(qa:InterviewQA, answer_text:str):
 
 def add_answer(question_text:str, answer_text:str, interview:Interview):
     try:
-        question = get_question(question_text)
+        question = get_question_by_text(question_text)
         qa = get_qa_in_interview(question, interview)
         qa.answer_text = answer_text
         db.commit()
